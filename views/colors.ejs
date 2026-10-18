@@ -4,20 +4,23 @@
 <%- include('partials/head') %>
 
     <body>
-        <%- include('partials/page-title') %>
-            <p>List of available colors:</p>
-            <% if (locals.colors?.length> 0) { %>
-                <ul>
-                    <% locals.colors.forEach(colorObj=> { %>
-                        <% const color=colorObj.css_named_color %>
-                            <%- include('partials/color', {color, text:color}) %>
+        <main>
+            <%- include('partials/pageTitle') %>
+                <p>List of available colors:</p>
+                <% if (locals.colors?.length> 0) { %>
+                    <ul>
+                        <% locals.colors.forEach(colorObj=> { %>
+                            <% const color=colorObj.css_named_color %>
+                                <li>
+                                    <%- include('partials/color', {color, text:color}) %>
+                                </li>
                                 <% }) %>
-                </ul>
-                <% } else { %>
-                    <p>None, no colors have been added.</p>
-                    <% } %>
-                        <%- include('partials/nav') %>
-                            <%- include('partials/footer') %>
+                    </ul>
+                    <% } else { %>
+                        <p>None, no colors have been added.</p>
+                        <% } %>
+        </main>
+        <%- include('partials/footer') %>
     </body>
 
 </html>

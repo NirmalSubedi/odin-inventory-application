@@ -1,0 +1,6 @@
+<% locals.colorOpts?.forEach(colorOpt=> { %>
+    <% const color=colorOpt.css_named_color; %>
+        <option value="<%= locals.prefix %><%=color %>">
+            <%- include('color', {color, text: color}) %>
+        </option>
+        <% }) %>

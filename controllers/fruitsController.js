@@ -2,21 +2,20 @@ import { NotFoundError } from "../errors/NotFoundError.js";
 import * as db from "../db/queries.js";
 import { removeDuplicateKeys } from "../utils/removeDuplicateKeys.js";
 
-const links = [{ href: "/", text: "Go Home" }];
 export const getFruitsPage = async (req, res) => {
   const fruits = await db.getAllFruits();
-  res.render("fruits", { title: "All Fruits", fruits, links });
+  res.render("fruits", { title: "All Fruits", fruits });
 };
 
 export const getFruitDetails = async (req, res) => {
   const { fruit } = req.params;
-  let fruitDetails = (await db.getFruitColors(fruit)).reduce(
+  let fruitDetails = (await db.getColorsOfFruit(fruit)).reduce(
     removeDuplicateKeys,
     {},
   );
   fruitDetails = Object.entries(fruitDetails);
   console.log(fruitDetails);
-  res.render("fruit-details", {
+  res.render("fruitDetails", {
     title: `Fresh Colors for ${fruit}`,
     fruit,
     fruitDetails,

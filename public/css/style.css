@@ -1,8 +1,21 @@
+html,
 body {
-  line-height: 1.6;
+  height: 100%;
 }
 
-.color-preview {
+body {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.colorPreview {
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -10,9 +23,16 @@ body {
   outline: 1px solid #000000;
 }
 
-.page-title,
-.fruit-detail-field-name,
-.fruit-name-text,
-.named-color-text {
+.colorSelect,
+.pageTitle,
+.fruitDetailFieldName,
+.fruitNameText,
+.namedColorText {
   text-transform: capitalize;
+}
+
+.fieldError {
+  display: block;
+  color: #ff0000;
+  font-weight: bold;
 }

@@ -1,0 +1,25 @@
+import * as db from "../db/queries.js";
+import { getPageValue } from "../utils/getPageValue.js";
+
+const indexPage = {
+  title: "Home",
+  links: [
+    { href: "/fruits", text: "View Fruits" },
+    { href: "/colors", text: "View Colors" },
+  ],
+  loader: async () => {
+    const [fruitColorsResult, peelColorsResult] = await Promise.allSettled([
+      db.getAllFreshFruitColors(),
+      db.getAllFreshFruitPeelColors(),
+    ]);
+    const fruitColors =
+      fruitColorsResult.status === "fulfilled" ? fruitColorsResult.value : null;
+    const peelColors =
+      peelColorsResult.status === "fulfilled" ? peelColorsResult.value : null;
+    return { fruitColors, peelColors };
+  },
+};
+
+export const getIndexPageValues = async () => {
+  return getPageValue(indexPage);
+};
