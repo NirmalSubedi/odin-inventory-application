@@ -1,0 +1,18 @@
+body {
+  line-height: 1.6;
+}
+
+.color-preview {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: var(--color);
+  outline: 1px solid #000000;
+}
+
+.page-title,
+.fruit-detail-field-name,
+.fruit-name-text,
+.named-color-text {
+  text-transform: capitalize;
+}

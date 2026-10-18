@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/head') %>
+
+    <body>
+        <%- include('partials/page-title') %>
+            <% if (locals.fruits?.length> 0) { %>
+                <ul>
+                    <% locals.fruits.forEach(fruit=> { %>
+                        <li><a href="/fruits/<%= fruit.fruit %>">
+                                <span class="fruit-name-text">
+                                    <%= fruit.fruit %>
+                                </span>
+                            </a>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } else { %>
+                    <p>None, no fruits have been added.</p>
+                    <% } %>
+                        <%- include('partials/nav') %>
+                            <%- include('partials/footer') %>
+    </body>
+
+</html>

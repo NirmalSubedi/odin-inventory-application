@@ -1,10 +1,11 @@
 import express from "express";
-import { NotFoundError } from "../errors/NotFoundError.js";
+import {
+  getIndexPage,
+  respondWithMissingResource,
+} from "../controllers/indexController.js";
 
 export const indexRouter = express.Router();
 
-indexRouter.get("/", (req, res) => res.send("Hello World!"));
+indexRouter.get("/", getIndexPage);
 
-indexRouter.use((req, res) => {
-  throw new NotFoundError("Page not found");
-});
+indexRouter.use(respondWithMissingResource);

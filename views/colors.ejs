@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/head') %>
+
+    <body>
+        <%- include('partials/page-title') %>
+            <p>List of available colors:</p>
+            <% if (locals.colors?.length> 0) { %>
+                <ul>
+                    <% locals.colors.forEach(colorObj=> { %>
+                        <% const color=colorObj.css_named_color %>
+                            <%- include('partials/color', {color, text:color}) %>
+                                <% }) %>
+                </ul>
+                <% } else { %>
+                    <p>None, no colors have been added.</p>
+                    <% } %>
+                        <%- include('partials/nav') %>
+                            <%- include('partials/footer') %>
+    </body>
+
+</html>
