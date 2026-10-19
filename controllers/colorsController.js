@@ -24,9 +24,26 @@ export const getSearchColor = [
       });
     }
 
-    const { searchFruitColor, searchPeelColor } = matchedData(req);
+    const { fruitColor, peelColor } = matchedData(req);
 
-    res.json({ searchFruitColor, searchPeelColor });
+    let fruits;
+    if (fruitColor && peelColor) {
+      fruits = await db.getAllFruitsByFreshFruitAndPeelColors(
+        fruitColor,
+        peelColor,
+      );
+    } else if (fruitColor) {
+      fruits = await db.getAllFruitsByFreshFruitColor(fruitColor);
+    } else {
+      fruits = await db.getAllFruitsByFreshFruitPeelColor(peelColor);
+    }
+
+    res.render("fruits", {
+      title: `Found Fresh Fruits with`,
+      fruits,
+      fruitColor,
+      peelColor,
+    });
   },
 ];
 

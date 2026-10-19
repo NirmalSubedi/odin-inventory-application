@@ -17,8 +17,8 @@ main {
 
 .colorPreview {
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  width: 0.75em;
+  height: 0.75em;
   background: var(--color);
   outline: 1px solid;
 }

@@ -7,11 +7,11 @@ const emptyError = "must not be empty.";
 export const validateColorSearch = [
   oneOf(
     [
-      query("searchFruitColor")
+      query("fruitColor")
         .trim()
         .notEmpty()
         .withMessage(`Fruit color search ${emptyError}`),
-      query("searchPeelColor")
+      query("peelColor")
         .trim()
         .notEmpty()
         .withMessage(`Peel color search ${emptyError}`),

@@ -10,11 +10,11 @@
                 <form action="/colors/search" method="get">
                     <div class="formFieldGroup <% if (locals.errors){%>formFieldGroupError<%} %>">
                         <fieldset class="formFieldset">
-                            <legend>Search Color By</legend>
+                            <legend>Search Fresh Fruits By</legend>
                             <p class="formField">
-                                <label for="searchFruitColor">Fruit:</label>
-                                <select id="searchFruitColor" name="searchFruitColor" class="colorSelect"
-                                    aria-describedby="searchColorError searchFruitColorError">
+                                <label for="fruitColor">Fruit Color:</label>
+                                <select id="fruitColor" name="fruitColor" class="colorSelect"
+                                    aria-describedby="searchColorError fruitColorError">
                                     <option value="" disabled hidden selected>-- Select a fruit color --</option>
                                     <% if (locals.fruitColors) { %>
                                         <%- include('partials/colorOptions', {colorOpts: fruitColors}) %>
@@ -22,9 +22,9 @@
                                 </select>
                             </p>
                             <p class="formField">
-                                <label for="searchPeelColor">Peel:</label>
-                                <select id="searchPeelColor" name="searchPeelColor" class="colorSelect"
-                                    aria-describedby="searchColorError searchPeelColorError">
+                                <label for="peelColor">Peel Color:</label>
+                                <select id="peelColor" name="peelColor" class="colorSelect"
+                                    aria-describedby="searchColorError peelColorError">
                                     <option value="" disabled hidden selected>-- Select a peel color --</option>
                                     <% if (locals.peelColors) { %>
                                         <%- include('partials/colorOptions', {colorOpts: peelColors}) %>
