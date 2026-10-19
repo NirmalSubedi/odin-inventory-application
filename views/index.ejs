@@ -7,31 +7,34 @@
         <main>
             <%- include('partials/pageTitle') %>
                 <p>Find out which colored fruits are fresh and safe to munch.</p>
-                <form action="/colors/search" method="post">
-                    <div class="formField">
-                        <label for="searchColor" class="searchColorLabel">Search By Color:</label>
-                        <select id="searchColor" name="searchColor" class="colorSelect"
-                            aria-describedby="searchColorError">
-                            <option value="" disabled hidden selected>-- Select a color --</option>
-                            <% if (locals.fruitColors) { %>
-                                <optgroup label="Fruit Color">
-                                    <%- include('partials/colorOptions', {colorOpts: fruitColors,
-                                        prefix:'fruit-color:'}) %>
-                                </optgroup>
-                                <% } %>
+                <form action="/colors/search" method="get">
+                    <div class="formFieldGroup <% if (locals.errors){%>formFieldGroupError<%} %>">
+                        <fieldset class="formFieldset">
+                            <legend>Search Color By</legend>
+                            <p class="formField">
+                                <label for="searchFruitColor">Fruit:</label>
+                                <select id="searchFruitColor" name="searchFruitColor" class="colorSelect"
+                                    aria-describedby="searchColorError searchFruitColorError">
+                                    <option value="" disabled hidden selected>-- Select a fruit color --</option>
+                                    <% if (locals.fruitColors) { %>
+                                        <%- include('partials/colorOptions', {colorOpts: fruitColors}) %>
+                                            <% } %>
+                                </select>
+                            </p>
+                            <p class="formField">
+                                <label for="searchPeelColor">Peel:</label>
+                                <select id="searchPeelColor" name="searchPeelColor" class="colorSelect"
+                                    aria-describedby="searchColorError searchPeelColorError">
+                                    <option value="" disabled hidden selected>-- Select a peel color --</option>
                                     <% if (locals.peelColors) { %>
-                                        <optgroup label="Peel Color">
-                                            <%- include('partials/colorOptions', {colorOpts: peelColors,
-                                                prefix:'peel-color:'}) %>
-                                        </optgroup>
-                                        <% } %>
-                        </select>
-                        <% if (locals.errors?.searchColor) { %>
-                            <%- include('partials/fieldError', {id:'searchColorError', error:
-                                locals.errors.searchColor}) %>
-                                <% } %>
+                                        <%- include('partials/colorOptions', {colorOpts: peelColors}) %>
+                                            <% } %>
+                                </select>
+                            </p>
+                            <%- include('partials/errorsList', {id:'searchColorError'}) %>
+                        </fieldset>
                     </div>
-                    <button type="submit">Search</button>
+                    <button type=" submit">Search</button>
                 </form>
                 <%- include('partials/nav') %>
         </main>

@@ -14,7 +14,6 @@ export const getFruitDetails = async (req, res) => {
     {},
   );
   fruitDetails = Object.entries(fruitDetails);
-  console.log(fruitDetails);
   res.render("fruitDetails", {
     title: `Fresh Colors for ${fruit}`,
     fruit,

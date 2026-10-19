@@ -1,0 +1,10 @@
+<% if (locals.errors?.length>0) { %>
+    <ul class="fieldErrors">
+        <% locals.errors.forEach(error=> { %>
+            <%- include('fieldError', {error, id:locals.id}) %>
+                <% error.nestedErrors.forEach(nestedError=> { %>
+                    <%- include('fieldError', {error:nestedError, id:nestedError.path+'Error'}) %>
+                        <% }) %>
+                            <% }) %>
+    </ul>
+    <% } %>

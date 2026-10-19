@@ -1,5 +1,5 @@
-<span id="<%= locals.id %>" class="fieldError">
-    <% if(locals.error) { %>
-        <%= locals.error.msg %>
-            <% } %>
-</span>
+<li <% if (locals.id) { %>
+    id='<%= locals.id %>''
+        <% } %>>
+            <%= locals.error.msg %>
+</li>

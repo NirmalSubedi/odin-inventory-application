@@ -1,13 +1,13 @@
 import express from "express";
 import {
   getColorsPage,
-  postSearchColor,
+  getSearchColor,
   respondWithMissingColor,
 } from "../controllers/colorsController.js";
 
 export const colorsRouter = express.Router();
 
 colorsRouter.get("/", getColorsPage);
-colorsRouter.post("/search", postSearchColor);
+colorsRouter.get("/search", getSearchColor);
 
 colorsRouter.use(respondWithMissingColor);

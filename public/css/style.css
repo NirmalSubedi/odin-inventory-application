@@ -20,7 +20,7 @@ main {
   width: 1em;
   height: 1em;
   background: var(--color);
-  outline: 1px solid #000000;
+  outline: 1px solid;
 }
 
 .colorSelect,
@@ -31,8 +31,33 @@ main {
   text-transform: capitalize;
 }
 
-.fieldError {
+.formFieldGroupError {
+  border-left: 5px solid #ff0000;
+}
+
+.formFieldset {
+  border: 0;
+  position: relative;
+  padding-left: 0.5em;
+  padding-top: 0;
+}
+
+.formFieldset legend {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: bold;
+  padding: inherit;
+  padding-top: 0;
+}
+
+.formField {
+  margin: 1.5rem 0;
+}
+
+.fieldErrors {
   display: block;
   color: #ff0000;
   font-weight: bold;
+  margin: 0;
 }

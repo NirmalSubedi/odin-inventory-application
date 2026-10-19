@@ -1,7 +1,7 @@
 import { NotFoundError } from "../errors/NotFoundError.js";
 import * as db from "../db/queries.js";
 import { validateColorSearch } from "../validators/validateColorSearch.js";
-import { validationResult } from "express-validator";
+import { matchedData, validationResult } from "express-validator";
 import { BAD_REQUEST } from "../config.js";
 import { getIndexPageValues } from "../values/indexPageValues.js";
 
@@ -10,20 +10,23 @@ export const getColorsPage = async (req, res) => {
   res.render("colors", { title: "All Colors", colors });
 };
 
-export const postSearchColor = [
+export const getSearchColor = [
   validateColorSearch,
   async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       const { title, ...rest } = await getIndexPageValues();
-      console.log(errors.mapped());
       return res.status(BAD_REQUEST).render("index", {
         ...rest,
         title: `Error: ${title}`,
-        errors: errors.mapped(),
+        errors: errors.array(),
       });
     }
+
+    const { searchFruitColor, searchPeelColor } = matchedData(req);
+
+    res.json({ searchFruitColor, searchPeelColor });
   },
 ];
 

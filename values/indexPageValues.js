@@ -4,8 +4,8 @@ import { getPageValue } from "../utils/getPageValue.js";
 const indexPage = {
   title: "Home",
   links: [
-    { href: "/fruits", text: "View Fruits" },
-    { href: "/colors", text: "View Colors" },
+    { href: "/fruits", text: "View All Fruits" },
+    { href: "/colors", text: "View All Colors" },
   ],
   loader: async () => {
     const [fruitColorsResult, peelColorsResult] = await Promise.allSettled([
