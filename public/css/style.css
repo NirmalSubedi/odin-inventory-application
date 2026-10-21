@@ -31,6 +31,16 @@ main {
   text-transform: capitalize;
 }
 
+.colorSearchForm {
+  width: fit-content;
+  border: 1px solid;
+  padding: 0.5em;
+}
+
+.formFieldGroup {
+  padding: 0 1em;
+}
+
 .formFieldGroupError {
   border-left: 5px solid #ff0000;
 }
@@ -38,7 +48,7 @@ main {
 .formFieldset {
   border: 0;
   position: relative;
-  padding-left: 0.5em;
+  padding-left: 0;
   padding-top: 0;
 }
 

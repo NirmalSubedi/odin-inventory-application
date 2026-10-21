@@ -1,0 +1,16 @@
+<p class="formField">
+    <label for="<%= locals.name %>">
+        <%= locals.label %>
+    </label>
+    <select id="<%= locals.name %>" name="<%= locals.name %>" class="colorSelect"
+        aria-describedby="<% if(locals.errorIds) { %><%= locals.errorIds.join(' ') %> <% } %>">
+        <% if (locals.defaultOptionValue) { %>
+            <option value="" disabled hidden selected>
+                <%= locals.defaultOptionValue %>
+            </option>
+            <% } %>
+                <% if (locals.colorOpts) { %>
+                    <%- include('colorOptions', {colorOpts}) %>
+                        <% } %>
+    </select>
+</p>
