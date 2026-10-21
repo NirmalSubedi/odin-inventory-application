@@ -66,3 +66,10 @@ export const getAllFruitsByFreshFruitAndPeelColors = async (
   const { rows } = await pool.query(sql, params);
   return rows;
 };
+
+export const getColor = async (color) => {
+  const sql = `SELECT css_named_color FROM css_named_colors WHERE css_named_color ILIKE $1`;
+  const params = [color];
+  const { rows } = await pool.query(sql, params);
+  return rows;
+};

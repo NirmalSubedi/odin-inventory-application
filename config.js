@@ -11,3 +11,6 @@ export const connectionString = process.env.DATABASE_URL;
 export const INTERNAL_SERVER_ERROR = 500;
 export const NOT_FOUND = 404;
 export const BAD_REQUEST = 400;
+
+// Paths
+export const COLORS_PATH = "/colors";
