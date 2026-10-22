@@ -8,26 +8,14 @@
 <body>
     <main>
         <%- include('partials/pageTitle') %>
-            <% if (locals.fruitDetails?.length>0) { %>
-                <% locals.fruitDetails?.forEach(([field,colors])=> { %>
-                    <section>
-                        <h2 class="fruitDetailFieldName">
-                            <%= field.split('_').join(' ') %>:
-                    </h2>
-                    <ul>
-                        <% colors.forEach(color=> { %>
-                            <li>
-                                <%- include( "partials/color", {color, text: color}) %>
-                            </li>
-                            <% }) %>
-                                </ul>
-                </section>
-                <% }) %>
-                    <% } else { %>
-                        <p>
-                            No details available about <%= locals.fruit || ' fruit' %>.
-                                </p>
-                                <% } %>
+            <% if (locals.fruit && locals.fruitDetails) { %>
+                <%- include('partials/fruitDetail', {fieldLabel:'Fruit Colors', fruitDetail:'fruit_colors'}) %>
+                    <%- include('partials/fruitDetail', {fieldLabel:'Peel Colors', fruitDetail:'peel_colors'}) %>
+                        <% } else { %>
+                            <p>
+                                No details available about <%= locals.fruit || ' fruit' %>.
+                            </p>
+                            <% } %>
     </main>
     <%- include('partials/footer') %>
 </body>

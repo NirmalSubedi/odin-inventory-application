@@ -1,9 +1,8 @@
 import { NotFoundError } from "../errors/NotFoundError.js";
 import * as db from "../db/queries.js";
-import { removeDuplicateKeys } from "../utils/removeDuplicateKeys.js";
 import { validateFruitCreation } from "../validators/validateFruitCreation.js";
 import { matchedData, validationResult } from "express-validator";
-import { BAD_REQUEST } from "../config.js";
+import { BAD_REQUEST, COLORS_DELIMITER } from "../config.js";
 import { getFruitCreationPageValues } from "../values/fruitCreationPageValues.js";
 
 export const getFruitsPage = async (req, res) => {
@@ -13,15 +12,13 @@ export const getFruitsPage = async (req, res) => {
 
 export const getFruitDetails = async (req, res) => {
   const { fruit } = req.params;
-  let fruitDetails = (await db.getColorsOfFruit(fruit)).reduce(
-    removeDuplicateKeys,
-    {},
-  );
-  fruitDetails = Object.entries(fruitDetails);
+  const [fruitDetails] = await db.getColorsOfFruit(fruit);
+
   res.render("fruitDetails", {
     title: `Fresh Colors for ${fruit}`,
     fruit,
     fruitDetails,
+    delimiter: COLORS_DELIMITER,
   });
 };
 

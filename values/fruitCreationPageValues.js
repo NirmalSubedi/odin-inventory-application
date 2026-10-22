@@ -1,5 +1,5 @@
 import * as db from "../db/queries.js";
-import { getPageValue } from "../utils/getPageValue.js";
+import { getPageValue } from "./utils/getPageValue.js";
 
 const fruitCreationPage = {
   title: "Create Fruit",

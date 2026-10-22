@@ -1,0 +1,10 @@
+<section>
+    <h2 class="fruitDetailFieldName">
+        <%= locals.fieldLabel %>:
+    </h2>
+    <ul>
+        <% locals.fruitDetails[locals.fruitDetail].split(locals.delimiter).forEach(color=> {%>
+            <li><%- include('color', {color, text:color}) %></li>
+            <% }) %>
+    </ul>
+</section>

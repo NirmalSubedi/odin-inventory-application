@@ -1,3 +1,4 @@
+import { COLORS_DELIMITER } from "../config.js";
 import { pool } from "./pool.js";
 
 export const getAllColors = async () => {
@@ -14,12 +15,16 @@ export const getAllFruits = async () => {
 
 export const getColorsOfFruit = async (fruit) => {
   const sql = `
-  SELECT fresh.css_named_color AS fruit_colors, peel.css_named_color AS peel_colors
-  FROM fruits 
-  JOIN fresh_fruit_colors AS fresh ON fresh.fruit = fruits.fruit AND fruits.fruit ILIKE $1
-  JOIN fresh_fruit_peel_colors AS peel ON peel.fruit = fruits.fruit`;
+  SELECT fresh.fruit,
+   STRING_AGG(DISTINCT fresh.css_named_color, $2) AS fruit_colors,
+   STRING_AGG(DISTINCT peel.css_named_color, $2) AS peel_colors
+  FROM fruits
+    JOIN fresh_fruit_colors AS fresh ON fresh.fruit = fruits.fruit AND fruits.fruit ILIKE $1
+    JOIN fresh_fruit_peel_colors AS peel ON peel.fruit = fruits.fruit
+  group by fresh.fruit
+  `;
 
-  const params = [fruit];
+  const params = [fruit, COLORS_DELIMITER];
   const { rows } = await pool.query(sql, params);
   return rows;
 };
