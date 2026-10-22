@@ -30,14 +30,16 @@ export const postFruitCreation = [
   validateFruitCreation,
   async (req, res) => {
     const errors = validationResult(req);
+    const { fruit = req.body.fruit, fruitColor, peelColor } = matchedData(req);
+
     if (!errors.isEmpty()) {
       const pageValues = await getFruitCreationPageValues();
       pageValues.title = `Error: ${pageValues.title}`;
       pageValues.errors = errors.array();
+      pageValues.fruit = fruit;
       return res.status(BAD_REQUEST).render("fruitCreation", pageValues);
     }
 
-    const { fruit, fruitColor, peelColor } = matchedData(req);
     res.json({ fruit, fruitColor, peelColor });
   },
 ];
