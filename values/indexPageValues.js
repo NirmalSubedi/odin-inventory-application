@@ -5,7 +5,6 @@ const indexPage = {
   title: "Home",
   links: [
     { href: "/fruits", text: "View All Fruits" },
-    { href: "/fruits/create", text: "Create Fruit" },
     { href: "/colors", text: "View All Colors" },
   ],
   loader: async () => {

@@ -7,6 +7,7 @@
         <main>
             <%- include('partials/pageTitleWithColors') %>
                 <% if (locals.fruits?.length> 0) { %>
+                    <p>List of created fruits:</p>
                     <ul>
                         <% locals.fruits.forEach(fruit=> { %>
                             <li><a href="/fruits/<%= fruit.fruit %>">
@@ -20,6 +21,8 @@
                     <% } else { %>
                         <p>No fruits found.</p>
                         <% } %>
+                            <p>Seeing a missing fruit? Feel free, to <a href="fruits/create">create the fruit</a> to
+                                add to the list.</p>
         </main>
         <%- include('partials/footer') %>
     </body>
