@@ -1,6 +1,6 @@
 import path from "node:path";
 import express from "express";
-import { COLORS_PATH, PORT } from "./config.js";
+import { COLORS_PATH, FRUITS_PATH, PORT } from "./config.js";
 import { fruitsRouter } from "./routes/fruitsRouter.js";
 import { colorsRouter } from "./routes/colorsRouter.js";
 import { indexRouter } from "./routes/indexRouter.js";
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routers
 app.use(COLORS_PATH, colorsRouter);
-app.use("/fruits", fruitsRouter);
+app.use(FRUITS_PATH, fruitsRouter);
 app.use("/", indexRouter);
 
 // Centralized Error Handling Middleware

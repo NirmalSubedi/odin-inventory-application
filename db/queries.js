@@ -78,3 +78,34 @@ export const getColor = async (color) => {
   const { rows } = await pool.query(sql, params);
   return rows;
 };
+
+export const getFruit = async (fruit) => {
+  const sql = `SELECT fruit FROM fruits WHERE fruit ILIKE $1`;
+  const params = [fruit];
+  const { rows } = await pool.query(sql, params);
+  return rows;
+};
+
+export const setFruit = async (fruit, fruitColor, peelColor) => {
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+
+    const insertFruit = `INSERT INTO fruits(fruit) VALUES ($1)`;
+    await client.query(insertFruit, [fruit]);
+
+    const insertFruitColor = `insert into fresh_fruit_colors(fruit, css_named_color) values ($1, $2)`;
+    await client.query(insertFruitColor, [fruit, fruitColor]);
+
+    const insertPeelColor = `insert into fresh_fruit_peel_colors(fruit, css_named_color) values ($1, $2)`;
+    await client.query(insertPeelColor, [fruit, peelColor]);
+
+    await client.query("COMMIT");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  } finally {
+    client.release();
+  }
+};

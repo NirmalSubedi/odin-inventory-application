@@ -14,6 +14,7 @@ export const BAD_REQUEST = 400;
 
 // Paths
 export const COLORS_PATH = "/colors";
+export const FRUITS_PATH = "/fruits";
 
 // Delimiters
 export const COLORS_DELIMITER = ", ";

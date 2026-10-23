@@ -18,10 +18,10 @@
                         </p>
                         <%- include('partials/colorInput', {name: 'fruitColor' , label:`Fruit Color:`,
                             errorIds:["createFruitError", "fruitColorError" ], defaultOptionValue:`-- Select a fruit
-                            color --`, colorOpts:locals.fruitColors}) %>
+                            color --`, colorOpts:locals.fruitColors, selectOption: locals.fruitColorSelect}) %>
                             <%- include('partials/colorInput', {name: 'peelColor' , label:`Peel Color:`,
                                 errorIds:["createFruitError", "peelColorError" ], defaultOptionValue:`-- Select a peel
-                                color --`, colorOpts:locals.peelColors}) %>
+                                color --`, colorOpts:locals.peelColors, selectOption: locals.peelColorSelect}) %>
                 </div>
                 <button type="submit">Create Fruit</button>
             </form>
