@@ -63,8 +63,9 @@ export const getAllFruitsByFreshFruitAndPeelColors = async (
   SELECT fresh.fruit 
   FROM fresh_fruit_peel_colors AS peel
   JOIN fresh_fruit_colors AS fresh 
-  ON fresh.css_named_color ILIKE $1 
-  AND peel.css_named_color ILIKE $2
+    ON peel.fruit ILIKE fresh.fruit
+    AND fresh.css_named_color ILIKE $1 
+    AND peel.css_named_color ILIKE $2
   `;
 
   const params = [fruitColor, peelColor];
