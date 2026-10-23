@@ -2,56 +2,78 @@ import { COLORS_DELIMITER } from "../config.js";
 import { pool } from "./pool.js";
 
 export const getAllColors = async () => {
-  const sql = "SELECT css_named_color FROM css_named_colors";
-  const { rows } = await pool.query(sql);
+  const queryText = `
+  SELECT css_named_color 
+  FROM css_named_colors`;
+
+  const { rows } = await pool.query(queryText);
   return rows;
 };
 
 export const getAllFruits = async () => {
-  const sql = "SELECT fruit FROM fruits";
-  const { rows } = await pool.query(sql);
+  const queryText = `
+  SELECT fruit 
+  FROM fruits`;
+
+  const { rows } = await pool.query(queryText);
   return rows;
 };
 
 export const getColorsOfFruit = async (fruit) => {
-  const sql = `
+  const queryText = `
   SELECT fresh.fruit,
-   STRING_AGG(DISTINCT fresh.css_named_color, $2) AS fruit_colors,
-   STRING_AGG(DISTINCT peel.css_named_color, $2) AS peel_colors
+    STRING_AGG(DISTINCT fresh.css_named_color, $2) AS fruit_colors,
+    STRING_AGG(DISTINCT peel.css_named_color, $2) AS peel_colors
   FROM fruits
-    JOIN fresh_fruit_colors AS fresh ON fresh.fruit = fruits.fruit AND fruits.fruit ILIKE $1
-    JOIN fresh_fruit_peel_colors AS peel ON peel.fruit = fruits.fruit
-  group by fresh.fruit
-  `;
+    JOIN fresh_fruit_colors AS fresh 
+      ON fresh.fruit = fruits.fruit 
+      AND fruits.fruit ILIKE $1
+    JOIN fresh_fruit_peel_colors AS peel 
+      ON peel.fruit = fruits.fruit
+  GROUP BY fresh.fruit`;
+  const values = [fruit, COLORS_DELIMITER];
 
-  const params = [fruit, COLORS_DELIMITER];
-  const { rows } = await pool.query(sql, params);
+  const { rows } = await pool.query(queryText, values);
   return rows;
 };
 
 export const getAllFreshFruitColors = async () => {
-  const sql = `SELECT DISTINCT css_named_color FROM fresh_fruit_colors`;
-  const { rows } = await pool.query(sql);
+  const queryText = `
+  SELECT DISTINCT css_named_color 
+  FROM fresh_fruit_colors`;
+
+  const { rows } = await pool.query(queryText);
   return rows;
 };
 
 export const getAllFreshFruitPeelColors = async () => {
-  const sql = `SELECT DISTINCT css_named_color FROM fresh_fruit_peel_colors`;
-  const { rows } = await pool.query(sql);
+  const queryText = `
+  SELECT DISTINCT css_named_color 
+  FROM fresh_fruit_peel_colors`;
+
+  const { rows } = await pool.query(queryText);
   return rows;
 };
 
 export const getAllFruitsByFreshFruitColor = async (fruitColor) => {
-  const sql = `SELECT fruit FROM fresh_fruit_colors WHERE css_named_color ILIKE $1`;
-  const params = [fruitColor];
-  const { rows } = await pool.query(sql, params);
+  const queryText = `
+  SELECT fruit 
+  FROM fresh_fruit_colors 
+  WHERE css_named_color ILIKE $1`;
+  const values = [fruitColor];
+
+  const { rows } = await pool.query(queryText, values);
   return rows;
 };
 
 export const getAllFruitsByFreshFruitPeelColor = async (peelColor) => {
-  const sql = `SELECT fruit FROM fresh_fruit_peel_colors WHERE css_named_color ILIKE $1`;
-  const params = [peelColor];
-  const { rows } = await pool.query(sql, params);
+  const queryText = `
+  SELECT fruit 
+  FROM fresh_fruit_peel_colors 
+  WHERE css_named_color ILIKE $1`;
+  const values = [peelColor];
+
+  const { rows } = await pool.query(queryText, values);
   return rows;
 };
 
@@ -59,7 +81,7 @@ export const getAllFruitsByFreshFruitAndPeelColors = async (
   fruitColor,
   peelColor,
 ) => {
-  const sql = `
+  const queryText = `
   SELECT fresh.fruit 
   FROM fresh_fruit_peel_colors AS peel
   JOIN fresh_fruit_colors AS fresh 
@@ -67,23 +89,31 @@ export const getAllFruitsByFreshFruitAndPeelColors = async (
     AND fresh.css_named_color ILIKE $1 
     AND peel.css_named_color ILIKE $2
   `;
+  const values = [fruitColor, peelColor];
 
-  const params = [fruitColor, peelColor];
-  const { rows } = await pool.query(sql, params);
+  const { rows } = await pool.query(queryText, values);
   return rows;
 };
 
 export const getColor = async (color) => {
-  const sql = `SELECT css_named_color FROM css_named_colors WHERE css_named_color ILIKE $1`;
-  const params = [color];
-  const { rows } = await pool.query(sql, params);
+  const queryText = `
+  SELECT css_named_color 
+  FROM css_named_colors 
+  WHERE css_named_color ILIKE $1`;
+  const values = [color];
+
+  const { rows } = await pool.query(queryText, values);
   return rows;
 };
 
 export const getFruit = async (fruit) => {
-  const sql = `SELECT fruit FROM fruits WHERE fruit ILIKE $1`;
-  const params = [fruit];
-  const { rows } = await pool.query(sql, params);
+  const queryText = `
+  SELECT fruit 
+  FROM fruits 
+  WHERE fruit ILIKE $1`;
+  const values = [fruit];
+
+  const { rows } = await pool.query(queryText, values);
   return rows;
 };
 
@@ -93,18 +123,28 @@ export const setFruit = async (fruit, fruitColor, peelColor) => {
   try {
     await client.query("BEGIN");
 
-    const insertFruit = `INSERT INTO fruits(fruit) VALUES ($1)`;
-    await client.query(insertFruit, [fruit]);
+    const insertFruit = `
+    INSERT INTO fruits
+    (fruit) VALUES ($1)`;
+    const insertFruitValues = [fruit];
+    await client.query(insertFruit, insertFruitValues);
 
-    const insertFruitColor = `insert into fresh_fruit_colors(fruit, css_named_color) values ($1, $2)`;
-    await client.query(insertFruitColor, [fruit, fruitColor]);
+    const insertFruitColor = `
+    INSERT INTO fresh_fruit_colors 
+    (fruit, css_named_color) VALUES ($1, $2)`;
+    const insertFruitColorValues = [fruit, fruitColor];
+    await client.query(insertFruitColor, insertFruitColorValues);
 
-    const insertPeelColor = `insert into fresh_fruit_peel_colors(fruit, css_named_color) values ($1, $2)`;
-    await client.query(insertPeelColor, [fruit, peelColor]);
+    const insertPeelColor = `
+    INSERT INTO fresh_fruit_peel_colors
+    (fruit, css_named_color) VALUES ($1, $2)`;
+    const insertPeelColorValues = [fruit, peelColor];
+    await client.query(insertPeelColor, insertPeelColorValues);
 
     await client.query("COMMIT");
   } catch (error) {
     await client.query("ROLLBACK");
+
     throw error;
   } finally {
     client.release();
