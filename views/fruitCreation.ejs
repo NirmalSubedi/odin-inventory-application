@@ -13,8 +13,9 @@
                     <%- include('partials/errorsList', {id:'createFruitError'}) %>
                         <p class="formField">
                             <label for="fruit">Fruit Name:</label>
-                            <input type="text" name="fruit" id="fruit" placeholder="e.g. Apple" <% if (locals.fruit) {
-                                %>value='<%= locals.fruit %>'<% } %>>
+                            <input type="text" name="fruit" id="fruit" placeholder="e.g. Apple"
+                                aria-describedby="fruitError" <% if (locals.fruit) { %>value='<%= locals.fruit %>'<% }
+                                    %>>
                         </p>
                         <%- include('partials/colorInput', {name: 'fruitColor' , label:`Fruit Color:`,
                             errorIds:["createFruitError", "fruitColorError" ], defaultOptionValue:`-- Select a fruit

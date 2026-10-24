@@ -9,8 +9,10 @@
     <main>
         <%- include('partials/pageTitle') %>
             <% if (locals.fruit && locals.fruitDetails) { %>
-                <%- include('partials/fruitDetail', {fieldLabel:'Fruit Colors', fruitDetail:'fruit_colors'}) %>
-                    <%- include('partials/fruitDetail', {fieldLabel:'Peel Colors', fruitDetail:'peel_colors'}) %>
+                <%- include('partials/fruitDetail', {fieldLabel:'Fruit Color', fruitDetail:'fruit_colors',
+                    createPath: 'fruitColor' }) %>
+                    <%- include('partials/fruitDetail', {fieldLabel:'Peel Color', fruitDetail:'peel_colors',
+                        createPath: 'peelColor' }) %>
                         <% } else { %>
                             <p>
                                 No details available about <%= locals.fruit || ' fruit' %>.
