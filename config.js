@@ -18,3 +18,4 @@ export const FRUITS_PATH = "/fruits";
 
 // Delimiters
 export const COLORS_DELIMITER = ", ";
+export const SPLIT_CAMELCASE_DELIMITER = " ";
