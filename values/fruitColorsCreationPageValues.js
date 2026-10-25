@@ -1,0 +1,36 @@
+import * as db from "../db/queries.js";
+import { splitCamelCase } from "../utils/splitCamelCase.js";
+import { getPageValues } from "../utils/getPageValues.js";
+
+const fruitColorsCreationPage = {
+  getRequestValues: (req) => {
+    const { fruit, colorField } = req.params;
+    const field = splitCamelCase(colorField);
+
+    return {
+      fruit,
+      field,
+      colorField,
+      title: `Add ${field} for ${fruit}`,
+      colorFieldLabel: `${field}:`,
+      defaultOptionValue: `-- Select a ${field} --`,
+      buttonText: `Add ${field}`,
+      errorIds: [`createFruitColorError`, `${colorField}Error`],
+    };
+  },
+
+  getDBValues: async (req) => {
+    const { fruit, colorField } = req.params;
+    let colorOpts;
+    if (colorField === "fruitColor") {
+      colorOpts = await db.getAllUnusedFruitColorsByFruit(fruit);
+    } else if (colorField === "peelColor") {
+      colorOpts = await db.getAllUnusedFruitColorsByFruit(fruit);
+    }
+    return { colorOpts };
+  },
+};
+
+export const getFruitColorsCreationValues = async (req) => {
+  return getPageValues(fruitColorsCreationPage, req);
+};

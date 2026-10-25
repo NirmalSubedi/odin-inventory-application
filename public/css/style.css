@@ -23,6 +23,8 @@ main {
   outline: 1px solid;
 }
 
+.formFieldLabel,
+.fruitColorCreationButton,
 .colorSelect,
 .pageTitle,
 .fruitDetailFieldName,

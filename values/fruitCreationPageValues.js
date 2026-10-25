@@ -1,9 +1,9 @@
 import * as db from "../db/queries.js";
-import { getPageValue } from "./utils/getPageValue.js";
+import { getPageValues } from "../utils/getPageValues.js";
 
 const fruitCreationPage = {
   title: "Create Fruit",
-  loader: async () => {
+  getDBValues: async () => {
     const colors = await db.getAllColors();
     return {
       fruitColors: colors,
@@ -13,5 +13,5 @@ const fruitCreationPage = {
 };
 
 export const getFruitCreationPageValues = async () => {
-  return getPageValue(fruitCreationPage);
+  return getPageValues(fruitCreationPage);
 };

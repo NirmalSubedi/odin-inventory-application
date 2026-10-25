@@ -1,5 +1,5 @@
 import * as db from "../db/queries.js";
-import { getPageValue } from "./utils/getPageValue.js";
+import { getPageValues } from "../utils/getPageValues.js";
 
 const indexPage = {
   title: "Home",
@@ -7,7 +7,7 @@ const indexPage = {
     { href: "/fruits", text: "View All Fruits" },
     { href: "/colors", text: "View All Colors" },
   ],
-  loader: async () => {
+  getDBValues: async () => {
     const [fruitColorsResult, peelColorsResult] = await Promise.allSettled([
       db.getAllFreshFruitColors(),
       db.getAllFreshFruitPeelColors(),
@@ -21,5 +21,5 @@ const indexPage = {
 };
 
 export const getIndexPageValues = async () => {
-  return getPageValue(indexPage);
+  return getPageValues(indexPage);
 };

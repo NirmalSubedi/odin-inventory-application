@@ -11,6 +11,6 @@
             <% details.forEach(color=> {%>
                 <li><%- include('color', {color, text:color}) %></li>
                 <% }) %>
-                    <a href="/fruits/<%= locals.fruit %>/<%= locals.fruitDetail %>">Add <%= fieldLabel %></a>
+                    <a href="/fruits/<%= locals.fruit %>/<%= locals.createPath %>">Add <%= fieldLabel %></a>
         </ul>
 </section>

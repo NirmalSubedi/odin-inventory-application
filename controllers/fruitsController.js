@@ -4,6 +4,8 @@ import { validateFruitCreation } from "../validators/validateFruitCreation.js";
 import { matchedData, validationResult } from "express-validator";
 import { BAD_REQUEST, FRUITS_PATH, COLORS_DELIMITER } from "../config.js";
 import { getFruitCreationPageValues } from "../values/fruitCreationPageValues.js";
+import { validateFruitColorCreations } from "../validators/validateFruitColorCreations.js";
+import { getFruitColorsCreationValues } from "../values/fruitColorsCreationPageValues.js";
 
 export const getFruitsPage = async (req, res) => {
   const fruits = await db.getAllFruits();
@@ -12,7 +14,7 @@ export const getFruitsPage = async (req, res) => {
 
 export const getFruitDetails = async (req, res) => {
   const { fruit } = req.params;
-  const [fruitDetails] = await db.getColorsOfFruit(fruit);
+  const [fruitDetails] = await db.getAllColorsOfFruit(fruit);
 
   res.render("fruitDetails", {
     title: `Fresh Colors for ${fruit}`,
@@ -46,6 +48,29 @@ export const postFruitCreation = [
 
     await db.setFruit(fruit, fruitColor, peelColor);
     res.redirect(FRUITS_PATH);
+  },
+];
+
+export const getFruitField = async (req, res) => {
+  res.render("fruitColorCreation", await getFruitColorsCreationValues(req));
+};
+
+export const postFruitField = [
+  validateFruitColorCreations,
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const pageValues = await getFruitColorsCreationValues(req);
+      pageValues.title = `Error: ${pageValues.title}`;
+      pageValues.errors = errors.array();
+
+      console.log(req.body);
+
+      return res.status(BAD_REQUEST).render("fruitColorCreation", pageValues);
+    }
+
+    res.json();
   },
 ];
 
