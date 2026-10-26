@@ -1,5 +1,5 @@
 import * as db from "../db/queries.js";
-import { getPageValues } from "../utils/getPageValues.js";
+import { getPageValues } from "../utils/aggregate.js";
 
 const indexPage = {
   title: "Home",

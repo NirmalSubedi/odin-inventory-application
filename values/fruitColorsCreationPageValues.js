@@ -1,11 +1,11 @@
 import * as db from "../db/queries.js";
-import { splitCamelCase } from "../utils/splitCamelCase.js";
-import { getPageValues } from "../utils/getPageValues.js";
+import { splitCamelCase, getPageValues } from "../utils/aggregate.js";
 
 const fruitColorsCreationPage = {
   getRequestValues: (req) => {
     const { fruit, colorField } = req.params;
     const field = splitCamelCase(colorField);
+    const selectOption = req.body?.[colorField];
 
     return {
       fruit,
@@ -14,6 +14,7 @@ const fruitColorsCreationPage = {
       title: `Add ${field} for ${fruit}`,
       colorFieldLabel: `${field}:`,
       defaultOptionValue: `-- Select a ${field} --`,
+      selectOption,
       buttonText: `Add ${field}`,
       errorIds: [`createFruitColorError`, `${colorField}Error`],
     };

@@ -1,11 +1,15 @@
 import { NotFoundError } from "../errors/NotFoundError.js";
 import * as db from "../db/queries.js";
-import { validateFruitCreation } from "../validators/validateFruitCreation.js";
 import { matchedData, validationResult } from "express-validator";
 import { BAD_REQUEST, FRUITS_PATH, COLORS_DELIMITER } from "../config.js";
-import { getFruitCreationPageValues } from "../values/fruitCreationPageValues.js";
-import { validateFruitColorCreations } from "../validators/validateFruitColorCreations.js";
-import { getFruitColorsCreationValues } from "../values/fruitColorsCreationPageValues.js";
+import {
+  validateFruitColorCreations,
+  validateFruitCreation,
+} from "../validators/aggregate.js";
+import {
+  getFruitColorsCreationValues,
+  getFruitCreationPageValues,
+} from "../values/aggregate.js";
 
 export const getFruitsPage = async (req, res) => {
   const fruits = await db.getAllFruits();
@@ -65,12 +69,19 @@ export const postFruitField = [
       pageValues.title = `Error: ${pageValues.title}`;
       pageValues.errors = errors.array();
 
-      console.log(req.body);
-
       return res.status(BAD_REQUEST).render("fruitColorCreation", pageValues);
     }
 
-    res.json();
+    const { colorField, fruit } = matchedData(req);
+    const color = req.body[colorField];
+
+    if (colorField === "fruitColor") {
+      await db.setFreshFruitColorsByFruitAndColor(fruit, color);
+    } else if (colorField === "peelColor") {
+      await db.setFreshFruitPeelColorsByFruitAndColor(fruit, color);
+    }
+
+    res.redirect(`${FRUITS_PATH}/${fruit}`);
   },
 ];
 

@@ -1,9 +1,9 @@
 import { NotFoundError } from "../errors/NotFoundError.js";
 import * as db from "../db/queries.js";
-import { validateColorSearch } from "../validators/validateColorSearch.js";
+import { validateColorSearch } from "../validators/aggregate.js";
 import { matchedData, validationResult } from "express-validator";
 import { BAD_REQUEST } from "../config.js";
-import { getIndexPageValues } from "../values/indexPageValues.js";
+import { getIndexPageValues } from "../values/aggregate.js";
 
 export const getColorsPage = async (req, res) => {
   const colors = await db.getAllColors();

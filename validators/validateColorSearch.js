@@ -1,5 +1,5 @@
 import { oneOf, query } from "express-validator";
-import { isColorInDB } from "./custom/isColorInDB.js";
+import { isColorInDB } from "./custom/aggregate.js";
 
 const requiredError =
   "Select either peel, fruit, or both color(s) to search by.";

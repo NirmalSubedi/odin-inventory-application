@@ -1,6 +1,5 @@
 import { body } from "express-validator";
-import { isColorInDB } from "./custom/isColorInDB.js";
-import { isFruitNotInDB } from "./custom/isFruitNotInDB.js";
+import { isFruitNotInDB, isColorInDB } from "./custom/aggregate.js";
 
 const emptyError = "must not be empty.";
 

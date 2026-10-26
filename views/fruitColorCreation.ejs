@@ -11,10 +11,7 @@
             <form action="/fruits/<%= locals.fruit %>/<%= locals.colorField %>" method="post">
                 <div class="formFieldGroup <% if (locals.errors){%>formFieldGroupError<%} %>">
                     <%- include('partials/errorsList', {id:'createFruitColorError'}) %>
-                        <input type="hidden" value="<%= locals.fruit %>" name="fruit">
-                        <input type="hidden" value="<%= locals.colorField %>" name="colorField">
-                        <%- include('partials/colorInput', {name: locals.colorField, label:locals.colorFieldLabel,
-                            selectOption: locals.colorSelect}) %>
+                        <%- include('partials/colorInput', {name: locals.colorField, label:locals.colorFieldLabel}) %>
                 </div>
                 <button type="submit" class="fruitColorCreationButton">
                     <%= locals.buttonText || 'Create' %>

@@ -151,8 +151,6 @@ export const setFruit = async (fruit, fruitColor, peelColor) => {
   }
 };
 
-// validation for adding (peel,fruit) color for fruit using non-entered color
-
 export const getAllUnusedFruitColorsByFruit = async (fruit) => {
   const queryText = `
   SELECT css_named_color
@@ -176,6 +174,28 @@ export const getAllUnusedPeelColorsByFruit = async (fruit) => {
             FROM fresh_fruit_peel_colors
             WHERE fruit ILIKE $1)`;
   const values = [fruit];
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+};
+
+export const setFreshFruitColorsByFruitAndColor = async (fruit, color) => {
+  const queryText = `
+  INSERT INTO fresh_fruit_colors(fruit, css_named_color) 
+  VALUES ($1, $2) 
+  ON CONFLICT DO NOTHING`;
+  const values = [fruit, color];
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+};
+
+export const setFreshFruitPeelColorsByFruitAndColor = async (fruit, color) => {
+  const queryText = `
+  INSERT INTO fresh_fruit_peel_colors(fruit, css_named_color) 
+  VALUES ($1, $2) 
+  ON CONFLICT DO NOTHING`;
+  const values = [fruit, color];
 
   const { rows } = await pool.query(queryText, values);
   return rows;
