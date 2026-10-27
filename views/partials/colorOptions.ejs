@@ -1,5 +1,6 @@
 <% locals.colorOpts?.forEach(colorOpt=> { %>
-    <% const color=colorOpt.css_named_color; %>
-        <option value="<%=color %>" <% if (locals.selectOption===color) { %>selected<% } %>><%= color %>
-        </option>
-        <% }) %>
+<% const color=colorOpt.css_named_color; %>
+<option value="<%=color %>" <% if (locals.selectOption===color) { %>selected<% } %>>
+  <%= color %>
+</option>
+<% }) %>

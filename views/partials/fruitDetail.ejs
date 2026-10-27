@@ -1,22 +1,27 @@
 <section>
-    <% const details=locals.fruitDetails[locals.fruitDetail].split(locals.delimiter)%>
-        <h2 class="fruitDetailFieldName">
-            <% if (details.length>1) { %>
-                <%= locals.fieldLabel %>s:
-                    <% } else { %>
-                        <%= locals.fieldLabel %>:
-                            <% } %>
-        </h2>
-        <ul>
-            <% details.forEach(color=> {%>
-                <li><%- include('color', {color, text:color}) %>
-                        <p class="colorFieldLinksContainer">
-                            <a href="/fruits/<%= locals.fruit %>/<%= locals.createPath %>/update">
-                                Update
-                            </a>
-                        </p>
-                </li>
-                <% }) %>
-        </ul>
-        <a href="/fruits/<%= locals.fruit %>/<%= locals.createPath %>">Add <%= fieldLabel %></a>
+  <% const details=locals.fruitDetails[locals.fruitDetail].split(locals.delimiter)%>
+  
+  <h2 class="fruitDetailFieldName">
+    <% if (details.length>1) { %>
+      <%= locals.fieldLabel %>s:
+    <% } else { %>
+      <%= locals.fieldLabel %>:
+    <% } %>
+  </h2>
+
+  <ul>
+    <% details.forEach(color=> {%>
+    <li>
+      <%- include('color', {color, text:color}) %>
+      <p class="colorFieldLinksContainer">
+        <a href="/fruits/<%= locals.fruit %>/<%= locals.createPath %>/update">
+        Update
+        </a>
+      </p>
+    </li>
+    <% }) %>
+  </ul>
+  <a href="/fruits/<%= locals.fruit %>/<%= locals.createPath %>">
+    Add <%= fieldLabel %>
+  </a>
 </section>

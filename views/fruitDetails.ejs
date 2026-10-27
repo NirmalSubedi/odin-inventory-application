@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
     <%- include('partials/head') %>
-</head>
+  </head>
 
-<body>
+  <body>
     <main>
-        <%- include('partials/pageTitle') %>
-            <% if (locals.fruit && locals.fruitDetails) { %>
-                <%- include('partials/fruitDetail', {fieldLabel:'Fruit Color', fruitDetail:'fruit_colors',
-                    createPath: 'fruitColor' }) %>
-                    <%- include('partials/fruitDetail', {fieldLabel:'Peel Color', fruitDetail:'peel_colors',
-                        createPath: 'peelColor' }) %>
-                        <% } else { %>
-                            <p>
-                                No details available about <%= locals.fruit || ' fruit' %>.
-                                    <a href="./create">Create fruit</a> to add details about <%= locals.fruit %>.
-                            </p>
-                            <% } %>
+      <%- include('partials/pageTitle') %>
+      <% if (locals.fruit && locals.fruitDetails) { %>
+      <%- include('partials/fruitDetail', {fieldLabel:'Fruit Color', fruitDetail:'fruit_colors',
+      createPath: 'fruitColor' }) %>
+      <%- include('partials/fruitDetail', {fieldLabel:'Peel Color', fruitDetail:'peel_colors',
+      createPath: 'peelColor' }) %>
+      <% } else { %>
+      <p>
+        No details available about <%= locals.fruit || ' fruit' %>.
+        <a href="./create">Create fruit</a> to add details about <%= locals.fruit %>.
+      </p>
+      <% } %>
     </main>
     <%- include('partials/footer') %>
-</body>
+  </body>
 
 </html>

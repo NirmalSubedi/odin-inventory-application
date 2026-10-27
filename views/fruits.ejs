@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('partials/head') %>
+  <%- include('partials/head') %>
 
-    <body>
-        <main>
-            <%- include('partials/pageTitleWithColors') %>
-                <% if (locals.fruits?.length> 0) { %>
-                    <p>List of created fruits:</p>
-                    <ul>
-                        <% locals.fruits.forEach(fruit=> { %>
-                            <li><a href="/fruits/<%= fruit.fruit %>">
-                                    <span class="fruitNameText">
-                                        <%= fruit.fruit %>
-                                    </span>
-                                </a>
-                                <p class="colorFieldLinksContainer">
-                                    <a href="/fruits/<%= fruit.fruit %>/update">
-                                        Update
-                                    </a>
-                                </p>
-                            </li>
-                            <% }) %>
-                    </ul>
-                    <% } else { %>
-                        <p>No fruits found.</p>
-                        <% } %>
-                            <p>Missing a fruit? Feel free, to <a href="fruits/create">create the fruit</a> to
-                                add to the list.</p>
-        </main>
-        <%- include('partials/footer') %>
-    </body>
+  <body>
+    <main>
+      <%- include('partials/pageTitleWithColors') %>
+      <% if (locals.fruits?.length> 0) { %>
+      <p>List of created fruits:</p>
+      <ul>
+        <% locals.fruits.forEach(fruit=> { %>
+        <li>
+          <a href="/fruits/<%= fruit.fruit %>">
+            <span class="fruitNameText">
+              <%= fruit.fruit %>
+            </span>
+          </a>
+          <p class="colorFieldLinksContainer">
+            <a href="/fruits/<%= fruit.fruit %>/update">
+              Update
+            </a>
+          </p>
+        </li>
+        <% }) %>
+      </ul>
+      <% } else { %>
+      <p>No fruits found.</p>
+      <% } %>
+      <p>Missing a fruit? Feel free, to <a href="fruits/create">create the fruit</a> to
+        add to the list.</p>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
 
 </html>

@@ -1,0 +1,13 @@
+<p class="formField">
+  <label for="<%= locals.name %>">
+    <%= locals.label %>
+  </label> 
+  <input
+    type="text"
+    name="<%= locals.name %>" 
+    id="<%= locals.name %>" 
+    placeholder="<%= locals.placeholder %>" 
+    aria-describedby="<%= errorIds?.join(' ') %>"
+    <% if(locals.fruit){%> value='<%= locals.value %>'<% } %>
+  >
+</p>

@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
     <%- include('partials/head') %>
-</head>
+  </head>
 
-<body>
+  <body>
     <main>
-        <%- include('partials/pageTitle') %>
-            <form action="/fruits/<%= locals.fruit %>/<%= locals.colorField %>" method="post">
-                <div class="formFieldGroup <% if (locals.errors){%>formFieldGroupError<%} %>">
-                    <%- include('partials/errorsList', {id:'createFruitColorError'}) %>
-                        <%- include('partials/colorInput', {name: locals.colorField, label:locals.colorFieldLabel}) %>
-                </div>
-                <button type="submit" class="fruitColorCreationButton">
-                    <%= locals.buttonText || 'Create' %>
-                </button>
-            </form>
+      <%- include('partials/pageTitle') %>
+      <form
+        action="/fruits/<%= locals.fruit %>/<%= locals.colorField %>"
+        method="post"
+      >
+        <div
+          class="formFieldGroup <% if (locals.errors){ %> formFieldGroupError <%}%>"
+        >
+          <%- include('partials/errorsList', {id:'createFruitColorError'}) %>
+          <%- include('partials/colorInput', {name: locals.colorField, label:locals.colorFieldLabel}) %>
+        </div>
+        <button type="submit" class="fruitColorCreationButton">
+          <%= locals.buttonText || 'Create' %>
+        </button>
+      </form>
     </main>
     <%- include('partials/footer') %>
 
-</body>
+  </body>
 
 </html>

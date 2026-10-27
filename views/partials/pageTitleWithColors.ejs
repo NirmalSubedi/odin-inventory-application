@@ -1,10 +1,10 @@
 <h1 class="pageTitleWithColors">
-    <%= locals.title %>
-        <% if (locals.peelColor) { %><%- include('color', {color:peelColor, text:` ${peelColor} colored peel`}) %>
-                <% } %>
-                    <% if (locals.fruitColor && locals.peelColor) { %>and<% } %>
-                            <% if (locals.fruitColor) { %><%- include('color', {color:fruitColor, text:` ${fruitColor}
-                                    colored fruit`}) %>
-                                    <% } %>
-                                        <% if (locals.searchPealColor || locals.fruitColor) { %>:<% } %>
+  <%= locals.title %>
+  <% if (locals.peelColor) { %><%- include('color', {color:peelColor, text:` ${peelColor} colored peel`}) %>
+  <% } %>
+  <% if (locals.fruitColor && locals.peelColor) { %>and<% } %>
+  <% if (locals.fruitColor) { %><%- include('color', {color:fruitColor, text:` ${fruitColor}
+  colored fruit`}) %>
+  <% } %>
+  <% if (locals.searchPealColor || locals.fruitColor) { %>:<% } %>
 </h1>

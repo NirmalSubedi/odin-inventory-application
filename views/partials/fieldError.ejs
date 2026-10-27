@@ -1,5 +1,6 @@
 <li <% if (locals.id) { %>
-    id='<%= locals.error?.path ? locals.error+'Error':locals.id %>'
-        <% } %>>
-            <%= locals.error.msg %>
+  id='<%= locals.error?.path ? locals.error+'Error':locals.id %>'
+  <% } %>
+  >
+  <%= locals.error.msg %>
 </li>

@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('partials/head') %>
+  <%- include('partials/head') %>
 
-    <body>
-        <main>
-            <%- include('partials/pageTitle') %>
-                <p>Find out which colored fruits are fresh and safe to munch.</p>
-                <form action="/colors/search" method="get" class="colorSearchForm">
-                    <div class="formFieldGroup <% if (locals.errors){%>formFieldGroupError<%} %>">
-                        <fieldset class="formFieldset">
-                            <legend>Search Fresh Fruits By</legend>
-                            <%- include('partials/colorInput', {name: 'fruitColor' , label:`Fruit Color:`,
-                                errorIds:["searchColorError", "fruitColorError" ], defaultOptionValue:`-- Select a fruit
-                                color --`, colorOpts:locals.fruitColors}) %>
-                                <%- include('partials/colorInput', {name: 'peelColor' , label:`Peel Color:`,
-                                    errorIds:["searchColorError", "peelColorError" ], defaultOptionValue:`-- Select a
-                                    peel color --`, colorOpts:locals.peelColors}) %>
-                                    <%- include('partials/errorsList', {id:'searchColorError'}) %>
-                        </fieldset>
-                    </div>
-                    <button type=" submit">Search</button>
-                </form>
-                <p>Related Links:</p>
-                <%- include('partials/nav') %>
-        </main>
-        <%- include('partials/footer') %>
-    </body>
+  <body>
+    <main>
+      <%- include('partials/pageTitle') %>
+      <p>Find out which colored fruits are fresh and safe to munch.</p>
+      <form action="/colors/search" method="get" class="colorSearchForm">
+        <div
+          class="formFieldGroup <% if (locals.errors){ %> formFieldGroupError <%}%>"
+        >
+          <fieldset class="formFieldset">
+            <legend>Search Fresh Fruits By</legend>
+            <%- include('partials/colorInput', {name: 'fruitColor' , label:`Fruit Color:`,
+            errorIds:["searchColorError", "fruitColorError" ], defaultOptionValue:`-- Select a fruit
+            color --`, colorOpts:locals.fruitColors}) %>
+            <%- include('partials/colorInput', {name: 'peelColor' , label:`Peel Color:`,
+            errorIds:["searchColorError", "peelColorError" ], defaultOptionValue:`-- Select a
+            peel color --`, colorOpts:locals.peelColors}) %>
+            <%- include('partials/errorsList', {id:'searchColorError'}) %>
+          </fieldset>
+        </div>
+        <button type=" submit">Search</button>
+      </form>
+      <p>Related Links:</p>
+      <%- include('partials/nav') %>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
 
 </html>
