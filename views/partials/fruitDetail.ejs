@@ -9,8 +9,14 @@
         </h2>
         <ul>
             <% details.forEach(color=> {%>
-                <li><%- include('color', {color, text:color}) %></li>
+                <li><%- include('color', {color, text:color}) %>
+                        <p class="colorFieldLinksContainer">
+                            <a href="/fruits/<%= locals.fruit %>/<%= locals.createPath %>/update">
+                                Update
+                            </a>
+                        </p>
+                </li>
                 <% }) %>
-                    <a href="/fruits/<%= locals.fruit %>/<%= locals.createPath %>">Add <%= fieldLabel %></a>
         </ul>
+        <a href="/fruits/<%= locals.fruit %>/<%= locals.createPath %>">Add <%= fieldLabel %></a>
 </section>

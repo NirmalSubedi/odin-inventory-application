@@ -49,8 +49,12 @@ export const postFruitCreation = [
   },
 ];
 
-export const getFruitUpdate = async (req, res) => {};
-export const postFruitUpdate = async (req, res) => {};
+export const getFruitUpdate = async (req, res) => {
+  res.send("fruitUpdate");
+};
+export const postFruitUpdate = async (req, res) => {
+  res.send("post fruitUpdate");
+};
 
 export const respondWithMissingFruit = (req, res) => {
   throw new NotFoundError("Fruit not found.");

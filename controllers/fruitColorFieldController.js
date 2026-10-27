@@ -34,5 +34,9 @@ export const postFruitField = [
   },
 ];
 
-export const getFruitFieldUpdate = async (req, res) => {};
-export const postFruitFieldUpdate = async (req, res) => {};
+export const getFruitFieldUpdate = async (req, res) => {
+  res.send("fruitFieldUpdate");
+};
+export const postFruitFieldUpdate = async (req, res) => {
+  res.send("post fruitFieldUpdate");
+};
