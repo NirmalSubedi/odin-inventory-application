@@ -1,5 +1,5 @@
 import * as db from "../db/queries.js";
-import { splitCamelCase, getPageValues } from "../utils/aggregate.js";
+import { getPageValues, splitCamelCase } from "../utils/aggregate.js";
 
 const fruitColorsCreationPage = {
   getRequestValues: (req) => {
@@ -26,7 +26,7 @@ const fruitColorsCreationPage = {
     if (colorField === "fruitColor") {
       colorOpts = await db.getAllUnusedFruitColorsByFruit(fruit);
     } else if (colorField === "peelColor") {
-      colorOpts = await db.getAllUnusedFruitColorsByFruit(fruit);
+      colorOpts = await db.getAllUnusedPeelColorsByFruit(fruit);
     }
     return { colorOpts };
   },
