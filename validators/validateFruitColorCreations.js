@@ -1,29 +1,18 @@
-import { body, param } from "express-validator";
-import { splitCamelCase } from "../utils/aggregate.js";
-import * as db from "../db/queries.js";
+import { body } from "express-validator";
 import { COLORS_PATH } from "../config.js";
+import * as db from "../db/queries.js";
+import { splitCamelCase } from "../utils/aggregate.js";
 import {
-  isFruitInDB,
-  isValidColorField,
-  hasColorFieldValue,
-} from "./custom/aggregate.js";
-
-const emptyError = "must not be empty.";
+  validateColorFieldParam,
+  validateFruitParam,
+} from "./chains/aggregate.js";
+import { hasColorFieldValue } from "./custom/aggregate.js";
 
 export const validateFruitColorCreations = [
-  param("fruit")
-    .trim()
-    .notEmpty()
-    .withMessage(`Fruit ${emptyError}`)
-    .bail()
-    .custom(isFruitInDB),
-  param("colorField")
-    .trim()
-    .notEmpty()
-    .withMessage(`Color field ${emptyError}`)
-    .custom(isValidColorField),
+  validateFruitParam,
+  validateColorFieldParam,
   body()
-    .custom(hasColorFieldValue)
+    .custom(hasColorFieldValue("to add"))
     .bail()
     .custom(async (_, { req, location }) => {
       const { colorField } = req.params;

@@ -1,8 +1,14 @@
-import * as db from "../db/queries.js";
 import { matchedData, validationResult } from "express-validator";
-import { getFruitColorsCreationValues } from "../values/aggregate.js";
 import { BAD_REQUEST, FRUITS_PATH } from "../config.js";
-import { validateFruitColorCreations } from "../validators/validateFruitColorCreations.js";
+import * as db from "../db/queries.js";
+import {
+  validateFruitColorCreations,
+  validateFruitColorUpdate,
+} from "../validators/aggregate.js";
+import {
+  getFruitColorsCreationValues,
+  getFruitColorsUpdatePageValues,
+} from "../values/aggregate.js";
 
 export const getFruitField = async (req, res) => {
   res.render("fruitColorCreation", await getFruitColorsCreationValues(req));
@@ -35,8 +41,30 @@ export const postFruitField = [
 ];
 
 export const getFruitFieldUpdate = async (req, res) => {
-  res.send("fruitFieldUpdate");
+  res.render(`fruitFieldUpdate`, await getFruitColorsUpdatePageValues(req));
 };
-export const postFruitFieldUpdate = async (req, res) => {
-  res.send("post fruitFieldUpdate");
-};
+
+export const postFruitFieldUpdate = [
+  validateFruitColorUpdate,
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const pageValues = await getFruitColorsUpdatePageValues(req);
+      pageValues.title = `Error: ${pageValues.title}`;
+      pageValues.errors = errors.array();
+      return res.status(BAD_REQUEST).render("fruitFieldUpdate", pageValues);
+    }
+
+    const { fruit, colorField, color: oldColor } = req.params;
+    const newColor = req.body[colorField];
+
+    if (colorField === "fruitColor") {
+      await db.updateFruitColor(fruit, oldColor, newColor);
+    } else if (colorField === "peelColor") {
+      await db.updatePeelColor(fruit, oldColor, newColor);
+    }
+
+    res.redirect(`${FRUITS_PATH}/${fruit}`);
+  },
+];

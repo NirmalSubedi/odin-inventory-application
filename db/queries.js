@@ -211,3 +211,27 @@ export const updateFruitName = async (oldName, newName) => {
   const { rows } = await pool.query(queryText, values);
   return rows;
 };
+
+export const updateFruitColor = async (fruit, oldColor, newColor) => {
+  const queryText = `
+  UPDATE fresh_fruit_colors 
+  SET css_named_color = $3
+  WHERE fruit ILIKE $1
+    AND css_named_color ILIKE $2`;
+  const values = [fruit, oldColor, newColor];
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+};
+
+export const updatePeelColor = async (fruit, oldColor, newColor) => {
+  const queryText = `
+  UPDATE fresh_fruit_peel_colors 
+  SET css_named_color = $3
+  WHERE fruit ILIKE $1
+    AND css_named_color ILIKE $2`;
+  const values = [fruit, oldColor, newColor];
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+};

@@ -14,6 +14,6 @@ fruitColorFieldRouter
   .post(postFruitField);
 
 fruitColorFieldRouter
-  .route("/:fruit/:colorField/update")
+  .route("/:fruit/:colorField/:color/update")
   .get(getFruitFieldUpdate)
   .post(postFruitFieldUpdate);

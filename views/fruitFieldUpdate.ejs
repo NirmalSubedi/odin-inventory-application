@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('partials/head') %>
+
+  <body>
+    <main>
+      <%- include('partials/pageTitle') %>
+      <p>Choose a new <%= locals.fruitFormattedColorField %> for <%= locals.fruit %> to replace <%- include('partials/color', {text: locals.color}) %></p>
+      <form
+        action="/fruits/<%= locals.fruit %>/<%= locals.colorField %>/<%= locals.color %>/update"
+        method="post"
+      >
+        <div
+          class="formFieldGroup <%if(locals.errors) { %> formFieldGroupError <%}%>"
+        >
+          <%- include('partials/errorsList', {id:'updateFruitError'}) %>
+          <%- include('partials/colorInput', {name: locals.colorField, label:locals.colorFieldLabel}) %>
+          
+        </div>
+        <button type="submit"><%= locals.buttonText || 'Update' %></button>
+      </form>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
+
+</html>

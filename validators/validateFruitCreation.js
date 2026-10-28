@@ -1,8 +1,7 @@
 import { body } from "express-validator";
 import { isColorInDB } from "./custom/aggregate.js";
-import { validateFruitField } from "./chains/validateFruitField.js";
-
-const emptyError = "must not be empty.";
+import { validateFruitField } from "./chains/aggregate.js";
+import { emptyError } from "../errors/validators/errors.js";
 
 export const validateFruitCreation = [
   validateFruitField,

@@ -1,9 +1,9 @@
 import { oneOf, query } from "express-validator";
+import {
+  emptyError,
+  requiredFruitSearchError,
+} from "../errors/validators/errors.js";
 import { isColorInDB } from "./custom/aggregate.js";
-
-const requiredError =
-  "Select either peel, fruit, or both color(s) to search by.";
-const emptyError = "must not be empty.";
 
 export const validateColorSearch = [
   oneOf(
@@ -21,6 +21,6 @@ export const validateColorSearch = [
         .bail()
         .custom(isColorInDB),
     ],
-    { message: requiredError, errorType: "flat" },
+    { message: requiredFruitSearchError, errorType: "flat" },
   ),
 ];
