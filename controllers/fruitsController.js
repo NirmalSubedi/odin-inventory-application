@@ -2,8 +2,14 @@ import { NotFoundError } from "../errors/NotFoundError.js";
 import * as db from "../db/queries.js";
 import { matchedData, validationResult } from "express-validator";
 import { BAD_REQUEST, FRUITS_PATH, COLORS_DELIMITER } from "../config.js";
-import { validateFruitCreation } from "../validators/aggregate.js";
-import { getFruitCreationPageValues } from "../values/aggregate.js";
+import {
+  validateFruitCreation,
+  validateFruitUpdate,
+} from "../validators/aggregate.js";
+import {
+  getFruitCreationPageValues,
+  getFruitUpdatePageValues,
+} from "../values/aggregate.js";
 
 export const getFruitsPage = async (req, res) => {
   const fruits = await db.getAllFruits();
@@ -50,11 +56,29 @@ export const postFruitCreation = [
 ];
 
 export const getFruitUpdate = async (req, res) => {
-  res.send("fruitUpdate");
+  res.render("fruitUpdate", await getFruitUpdatePageValues(req));
 };
-export const postFruitUpdate = async (req, res) => {
-  res.send("post fruitUpdate");
-};
+
+export const postFruitUpdate = [
+  validateFruitUpdate,
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const pageValues = await getFruitUpdatePageValues(req);
+      pageValues.title = `Error: ${pageValues.title}`;
+      pageValues.errors = errors.array();
+
+      return res.status(BAD_REQUEST).render("fruitUpdate", pageValues);
+    }
+
+    const { fruit: newFruitName } = matchedData(req);
+    const { fruit: oldFruitName } = req.params;
+
+    await db.updateFruitName(oldFruitName, newFruitName);
+    res.redirect(FRUITS_PATH);
+  },
+];
 
 export const respondWithMissingFruit = (req, res) => {
   throw new NotFoundError("Fruit not found.");

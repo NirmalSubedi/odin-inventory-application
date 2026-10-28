@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('partials/head') %>
+
+  <body>
+    <main>
+      <%- include('partials/pageTitle') %>
+      <p>Choose a new name for <%= locals.fruit %></p>
+      <form action="/fruits/<%= locals.fruit %>/update" method="post">
+        <div
+          class="formFieldGroup <%if(locals.errors) { %> formFieldGroupError <%}%>"
+        >
+          <%- include('partials/errorsList', {id:'updateFruitError'}) %>
+          <%- include('partials/fruitInput', { label: 'New Fruit Name:', name: 'fruit', 
+          placeholder: 'e.g. Apple', value: locals.fruitValue, errorIds: ['updateFruitError'] }) %>
+        </div>
+        <button type="submit">Update Fruit Name</button>
+      </form>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
+
+</html>

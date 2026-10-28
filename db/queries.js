@@ -200,3 +200,14 @@ export const setFreshFruitPeelColorsByFruitAndColor = async (fruit, color) => {
   const { rows } = await pool.query(queryText, values);
   return rows;
 };
+
+export const updateFruitName = async (oldName, newName) => {
+  const queryText = `
+  UPDATE fruits 
+  SET fruit = $2
+  WHERE fruit ILIKE $1`;
+  const values = [oldName, newName];
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+};

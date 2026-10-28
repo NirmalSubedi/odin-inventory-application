@@ -1,15 +1,11 @@
 import { body } from "express-validator";
-import { isFruitNotInDB, isColorInDB } from "./custom/aggregate.js";
+import { isColorInDB } from "./custom/aggregate.js";
+import { validateFruitField } from "./chains/validateFruitField.js";
 
 const emptyError = "must not be empty.";
 
 export const validateFruitCreation = [
-  body("fruit")
-    .trim()
-    .notEmpty()
-    .withMessage(`Fruit name ${emptyError}`)
-    .bail()
-    .custom(isFruitNotInDB),
+  validateFruitField,
   body("fruitColor")
     .trim()
     .notEmpty()
