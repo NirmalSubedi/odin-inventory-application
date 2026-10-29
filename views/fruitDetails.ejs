@@ -8,7 +8,7 @@
   <body>
     <main>
       <%- include('partials/pageTitle') %>
-      <% if (locals.fruit && locals.fruitDetails) { %>
+      <% if (locals.doesFruitExist) { %>
       <%- include('partials/fruitDetail', {fieldLabel:'Fruit Color', fruitDetail:'fruit_colors',
       createPath: 'fruitColor' }) %>
       <%- include('partials/fruitDetail', {fieldLabel:'Peel Color', fruitDetail:'peel_colors',

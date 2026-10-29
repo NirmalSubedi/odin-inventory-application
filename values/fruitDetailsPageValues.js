@@ -17,18 +17,21 @@ const fruitDetailsPage = {
   getDBValues: async (req) => {
     const { fruit } = req.params;
 
-    const [fruitColorsRes, peelColorsRes] = await Promise.allSettled([
-      await db.getAllFreshFruitColorsByFruit(fruit),
-      await db.getAllFreshPeelColorsByFruit(fruit),
+    const [fruitRes, fruitColorsRes, peelColorsRes] = await Promise.allSettled([
+      db.getFruit(fruit),
+      db.getAllFreshFruitColorsByFruit(fruit),
+      db.getAllFreshPeelColorsByFruit(fruit),
     ]);
 
     const [fruit_colors] =
       fruitColorsRes.status === "fulfilled" ? fruitColorsRes.value : null;
     const [peel_colors] =
       peelColorsRes.status === "fulfilled" ? peelColorsRes.value : null;
-    const fruitDetails = { ...fruit_colors, ...peel_colors };
+    const [storedFruit] =
+      fruitRes.status === "fulfilled" ? fruitRes.value : null;
 
-    return { fruitDetails };
+    const fruitDetails = { ...fruit_colors, ...peel_colors };
+    return { fruitDetails, doesFruitExist: Boolean(storedFruit) };
   },
 };
 
