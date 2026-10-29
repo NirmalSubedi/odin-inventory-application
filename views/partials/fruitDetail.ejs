@@ -1,8 +1,8 @@
 <section>
-  <% const details=locals.fruitDetails[locals.fruitDetail].split(locals.delimiter)%>
+  <% const details=locals.fruitDetails?.[locals.fruitDetail]?.split(locals.delimiter)%>
   
   <h2 class="fruitDetailFieldName">
-    <% if (details.length>1) { %>
+    <% if (details?.length>1) { %>
       <%= locals.fieldLabel %>s:
     <% } else { %>
       <%= locals.fieldLabel %>:
@@ -10,7 +10,7 @@
   </h2>
 
   <ul>
-    <% details.forEach(color=> {%>
+    <% details?.forEach(color=> {%>
     <li>
       <%- include('color', {color, text:color}) %>
       <p class="colorFieldLinksContainer">
