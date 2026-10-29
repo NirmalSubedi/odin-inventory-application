@@ -1,5 +1,5 @@
 import { matchedData, validationResult } from "express-validator";
-import { BAD_REQUEST, COLORS_DELIMITER, FRUITS_PATH } from "../config.js";
+import { BAD_REQUEST, FRUITS_PATH } from "../config.js";
 import * as db from "../db/queries.js";
 import { NotFoundError } from "../errors/NotFoundError.js";
 import {
@@ -8,6 +8,7 @@ import {
 } from "../validators/aggregate.js";
 import {
   getFruitCreationPageValues,
+  getFruitDetailsPageValues,
   getFruitUpdatePageValues,
 } from "../values/aggregate.js";
 
@@ -17,18 +18,7 @@ export const getFruitsPage = async (req, res) => {
 };
 
 export const getFruitDetails = async (req, res) => {
-  const { fruit } = req.params;
-  const fruitDetails = {
-    ...(await db.getAllFreshFruitColorsByFruit(fruit)).at(0),
-    ...(await db.getAllFreshPeelColorsByFruit(fruit)).at(0),
-  };
-
-  res.render("fruitDetails", {
-    title: `Fresh Colors for ${fruit}`,
-    fruit,
-    fruitDetails,
-    delimiter: COLORS_DELIMITER,
-  });
+  res.render("fruitDetails", await getFruitDetailsPageValues(req));
 };
 
 export const getFruitCreation = async (req, res) => {
