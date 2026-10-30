@@ -73,6 +73,10 @@ export const postFruitUpdate = [
   },
 ];
 
+export const postFruitDelete = async (req, res) => {
+  res.send("postFruitDelete");
+};
+
 export const respondWithMissingFruit = (req, res) => {
   throw new NotFoundError("Fruit not found.");
 };

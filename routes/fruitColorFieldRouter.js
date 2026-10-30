@@ -3,6 +3,7 @@ import {
   getFruitField,
   getFruitFieldUpdate,
   postFruitField,
+  postFruitFieldDelete,
   postFruitFieldUpdate,
 } from "../controllers/fruitColorFieldController.js";
 
@@ -17,3 +18,8 @@ fruitColorFieldRouter
   .route("/:fruit/:colorField/:color/update")
   .get(getFruitFieldUpdate)
   .post(postFruitFieldUpdate);
+
+fruitColorFieldRouter.post(
+  "/:fruit/:colorField/:color/delete",
+  postFruitFieldDelete,
+);

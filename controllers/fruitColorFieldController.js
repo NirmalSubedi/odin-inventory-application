@@ -68,3 +68,7 @@ export const postFruitFieldUpdate = [
     res.redirect(`${FRUITS_PATH}/${fruit}`);
   },
 ];
+
+export const postFruitFieldDelete = async (req, res) => {
+  res.send("postFruitFieldDelete");
+};

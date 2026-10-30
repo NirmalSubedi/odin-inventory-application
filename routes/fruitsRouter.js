@@ -3,10 +3,11 @@ import {
   getFruitCreation,
   getFruitDetails,
   getFruitsPage,
-  postFruitCreation,
-  respondWithMissingFruit,
   getFruitUpdate,
+  postFruitCreation,
+  postFruitDelete,
   postFruitUpdate,
+  respondWithMissingFruit,
 } from "../controllers/fruitsController.js";
 import { fruitColorFieldRouter } from "./fruitColorFieldRouter.js";
 
@@ -19,6 +20,8 @@ fruitsRouter.route("/create").get(getFruitCreation).post(postFruitCreation);
 fruitsRouter.get("/:fruit", getFruitDetails);
 
 fruitsRouter.route("/:fruit/update").get(getFruitUpdate).post(postFruitUpdate);
+
+fruitsRouter.post("/:fruit/delete", postFruitDelete);
 
 fruitsRouter.use(fruitColorFieldRouter);
 
