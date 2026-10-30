@@ -15,6 +15,10 @@ main {
   flex: 1;
 }
 
+button {
+  cursor: pointer;
+}
+
 .colorPreview {
   display: inline-block;
   width: 0.75em;
