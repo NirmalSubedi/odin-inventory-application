@@ -74,7 +74,9 @@ export const postFruitUpdate = [
 ];
 
 export const postFruitDelete = async (req, res) => {
-  res.send("postFruitDelete");
+  const { fruit } = req.params;
+  await db.deleteFruit(fruit);
+  res.redirect(FRUITS_PATH);
 };
 
 export const respondWithMissingFruit = (req, res) => {
