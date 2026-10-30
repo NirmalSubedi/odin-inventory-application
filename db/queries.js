@@ -1,3 +1,4 @@
+import { COLORS_DELIMITER } from "../config.js";
 import { pool } from "./pool.js";
 
 export const getAllColors = async () => {
@@ -219,10 +220,10 @@ export const updatePeelColor = async (fruit, oldColor, newColor) => {
 
 export const getAllFreshFruitColorsByFruit = async (fruit) => {
   const queryText = `
-  select string_agg(css_named_color, ', ') as fruit_colors
-  from fresh_fruit_colors
-  where fruit ilike $1`;
-  const values = [fruit];
+  SELECT STRING_AGG(css_named_color, $2) as fruit_colors
+  FROM fresh_fruit_colors
+  WHERE fruit ILIKE $1`;
+  const values = [fruit, COLORS_DELIMITER];
 
   const { rows } = await pool.query(queryText, values);
   return rows;
@@ -230,10 +231,10 @@ export const getAllFreshFruitColorsByFruit = async (fruit) => {
 
 export const getAllFreshPeelColorsByFruit = async (fruit) => {
   const queryText = `
-  select string_agg(css_named_color, ', ') as peel_colors
-  from fresh_fruit_peel_colors
-  where fruit ilike $1`;
-  const values = [fruit];
+  SELECT STRING_AGG(css_named_color, $2) as peel_colors
+  FROM fresh_fruit_peel_colors
+  WHERE fruit ILIKE $1`;
+  const values = [fruit, COLORS_DELIMITER];
 
   const { rows } = await pool.query(queryText, values);
   return rows;
