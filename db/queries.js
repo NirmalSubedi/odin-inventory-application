@@ -239,3 +239,35 @@ export const getAllFreshPeelColorsByFruit = async (fruit) => {
   const { rows } = await pool.query(queryText, values);
   return rows;
 };
+
+export const deleteFruit = async (fruit) => {
+  const queryText = `
+  DELETE FROM fruits 
+  WHERE fruit ILIKE $1`;
+  const values = [fruit];
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+};
+
+export const deleteFruitColorOfFruit = async (fruit, fruitColor) => {
+  const queryText = `
+  DELETE FROM fresh_fruit_colors 
+  WHERE fruit ILIKE $1
+    AND css_named_color ILIKE $2`;
+  const values = [fruit, fruitColor];
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+};
+
+export const deletePeelColorOfFruit = async (fruit, peelColor) => {
+  const queryText = `
+  DELETE FROM fresh_fruit_peel_colors 
+  WHERE fruit ILIKE $1
+    AND css_named_color ILIKE $2`;
+  const values = [fruit, peelColor];
+
+  const { rows } = await pool.query(queryText, values);
+  return rows;
+};
