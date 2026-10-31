@@ -1,7 +1,7 @@
 import { body } from "express-validator";
-import { isColorInDB } from "./custom/aggregate.js";
-import { validateFruitField } from "./chains/aggregate.js";
 import { emptyError } from "../errors/validators/errors.js";
+import { validateFruitField } from "./chains/aggregate.js";
+import { isColorInDB } from "./custom/aggregate.js";
 
 export const validateFruitCreation = [
   validateFruitField,
@@ -10,11 +10,13 @@ export const validateFruitCreation = [
     .notEmpty()
     .withMessage(`Fruit color ${emptyError}`)
     .bail()
+    .toLowerCase()
     .custom(isColorInDB),
   body("peelColor")
     .trim()
     .notEmpty()
     .withMessage(`Peel color ${emptyError}`)
     .bail()
+    .toLowerCase()
     .custom(isColorInDB),
 ];

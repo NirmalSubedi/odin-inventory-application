@@ -41,7 +41,7 @@ export const getAllFruitsByFreshFruitColor = async (fruitColor) => {
   const queryText = `
   SELECT fruit 
   FROM fresh_fruit_colors 
-  WHERE css_named_color ILIKE $1`;
+  WHERE css_named_color = $1`;
   const values = [fruitColor];
 
   const { rows } = await pool.query(queryText, values);
@@ -52,7 +52,7 @@ export const getAllFruitsByFreshFruitPeelColor = async (peelColor) => {
   const queryText = `
   SELECT fruit 
   FROM fresh_fruit_peel_colors 
-  WHERE css_named_color ILIKE $1`;
+  WHERE css_named_color = $1`;
   const values = [peelColor];
 
   const { rows } = await pool.query(queryText, values);
@@ -67,9 +67,9 @@ export const getAllFruitsByFreshFruitAndPeelColors = async (
   SELECT fresh.fruit 
   FROM fresh_fruit_peel_colors AS peel
   JOIN fresh_fruit_colors AS fresh 
-    ON peel.fruit ILIKE fresh.fruit
-    AND fresh.css_named_color ILIKE $1 
-    AND peel.css_named_color ILIKE $2
+    ON peel.fruit = fresh.fruit
+    AND fresh.css_named_color = $1 
+    AND peel.css_named_color = $2
   `;
   const values = [fruitColor, peelColor];
 
@@ -81,7 +81,7 @@ export const getColor = async (color) => {
   const queryText = `
   SELECT css_named_color 
   FROM css_named_colors 
-  WHERE css_named_color ILIKE $1`;
+  WHERE css_named_color = $1`;
   const values = [color];
 
   const { rows } = await pool.query(queryText, values);
@@ -92,7 +92,7 @@ export const getFruit = async (fruit) => {
   const queryText = `
   SELECT fruit 
   FROM fruits 
-  WHERE fruit ILIKE $1`;
+  WHERE fruit = $1`;
   const values = [fruit];
 
   const { rows } = await pool.query(queryText, values);
@@ -140,7 +140,7 @@ export const getAllUnusedFruitColorsByFruit = async (fruit) => {
   WHERE css_named_color
     NOT IN (SELECT css_named_color
             FROM fresh_fruit_colors
-            WHERE fruit ILIKE $1)`;
+            WHERE fruit = $1)`;
   const values = [fruit];
 
   const { rows } = await pool.query(queryText, values);
@@ -154,7 +154,7 @@ export const getAllUnusedPeelColorsByFruit = async (fruit) => {
   WHERE css_named_color
     NOT IN (SELECT css_named_color 
             FROM fresh_fruit_peel_colors
-            WHERE fruit ILIKE $1)`;
+            WHERE fruit = $1)`;
   const values = [fruit];
 
   const { rows } = await pool.query(queryText, values);
@@ -187,7 +187,7 @@ export const updateFruitName = async (oldName, newName) => {
   const queryText = `
   UPDATE fruits 
   SET fruit = $2
-  WHERE fruit ILIKE $1`;
+  WHERE fruit = $1`;
   const values = [oldName, newName];
 
   const { rows } = await pool.query(queryText, values);
@@ -198,8 +198,8 @@ export const updateFruitColor = async (fruit, oldColor, newColor) => {
   const queryText = `
   UPDATE fresh_fruit_colors 
   SET css_named_color = $3
-  WHERE fruit ILIKE $1
-    AND css_named_color ILIKE $2`;
+  WHERE fruit = $1
+    AND css_named_color = $2`;
   const values = [fruit, oldColor, newColor];
 
   const { rows } = await pool.query(queryText, values);
@@ -210,8 +210,8 @@ export const updatePeelColor = async (fruit, oldColor, newColor) => {
   const queryText = `
   UPDATE fresh_fruit_peel_colors 
   SET css_named_color = $3
-  WHERE fruit ILIKE $1
-    AND css_named_color ILIKE $2`;
+  WHERE fruit = $1
+    AND css_named_color = $2`;
   const values = [fruit, oldColor, newColor];
 
   const { rows } = await pool.query(queryText, values);
@@ -222,7 +222,7 @@ export const getAllFreshFruitColorsByFruit = async (fruit) => {
   const queryText = `
   SELECT STRING_AGG(css_named_color, $2) as fruit_colors
   FROM fresh_fruit_colors
-  WHERE fruit ILIKE $1`;
+  WHERE fruit = $1`;
   const values = [fruit, COLORS_DELIMITER];
 
   const { rows } = await pool.query(queryText, values);
@@ -233,7 +233,7 @@ export const getAllFreshPeelColorsByFruit = async (fruit) => {
   const queryText = `
   SELECT STRING_AGG(css_named_color, $2) as peel_colors
   FROM fresh_fruit_peel_colors
-  WHERE fruit ILIKE $1`;
+  WHERE fruit = $1`;
   const values = [fruit, COLORS_DELIMITER];
 
   const { rows } = await pool.query(queryText, values);
@@ -243,7 +243,7 @@ export const getAllFreshPeelColorsByFruit = async (fruit) => {
 export const deleteFruit = async (fruit) => {
   const queryText = `
   DELETE FROM fruits 
-  WHERE fruit ILIKE $1`;
+  WHERE fruit = $1`;
   const values = [fruit];
 
   const { rows } = await pool.query(queryText, values);
@@ -253,8 +253,8 @@ export const deleteFruit = async (fruit) => {
 export const deleteFruitColorOfFruit = async (fruit, fruitColor) => {
   const queryText = `
   DELETE FROM fresh_fruit_colors 
-  WHERE fruit ILIKE $1
-    AND css_named_color ILIKE $2`;
+  WHERE fruit = $1
+    AND css_named_color = $2`;
   const values = [fruit, fruitColor];
 
   const { rows } = await pool.query(queryText, values);
@@ -264,8 +264,8 @@ export const deleteFruitColorOfFruit = async (fruit, fruitColor) => {
 export const deletePeelColorOfFruit = async (fruit, peelColor) => {
   const queryText = `
   DELETE FROM fresh_fruit_peel_colors 
-  WHERE fruit ILIKE $1
-    AND css_named_color ILIKE $2`;
+  WHERE fruit = $1
+    AND css_named_color = $2`;
   const values = [fruit, peelColor];
 
   const { rows } = await pool.query(queryText, values);

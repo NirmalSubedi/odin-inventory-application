@@ -8,4 +8,5 @@ export const validateFruitField = body("fruit")
   .notEmpty()
   .withMessage(`Fruit name ${emptyError}`)
   .bail()
+  .toLowerCase()
   .custom(isFruitNotInDB);

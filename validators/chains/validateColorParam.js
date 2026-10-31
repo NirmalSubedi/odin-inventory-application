@@ -7,4 +7,5 @@ export const validateColorParam = param("color")
   .notEmpty()
   .withMessage(`Color param ${emptyError}`)
   .bail({ level: "request" })
+  .toLowerCase()
   .custom(isColorInDB);

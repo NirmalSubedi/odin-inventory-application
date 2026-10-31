@@ -14,11 +14,17 @@ export const validateFruitColorUpdate = [
   validateColorFieldParam,
   validateColorParam,
   body()
+    .customSanitizer((body, { req }) => {
+      const { colorField } = req.params;
+      body[colorField] = body[colorField].trim().toLowerCase();
+      body.formattedField = splitCamelCase(colorField).trim().toLowerCase();
+      return body;
+    })
     .custom(hasColorFieldValue("to update"))
     .custom((_, { req, location }) => {
       const { colorField, color } = req.params;
       const inputColorValue = req[location][colorField];
-      const formattedField = splitCamelCase(colorField).toLowerCase();
+      const { formattedField } = req[location];
 
       if (inputColorValue === color)
         throw new Error(`Select new ${formattedField}.`);
@@ -28,7 +34,7 @@ export const validateFruitColorUpdate = [
     .custom(async (_, { req, location }) => {
       const { colorField } = req.params;
       const inputColorValue = req[location][colorField];
-      const formattedField = splitCamelCase(colorField).toLowerCase();
+      const { formattedField } = req[location];
 
       const color = await db.getColor(inputColorValue);
 

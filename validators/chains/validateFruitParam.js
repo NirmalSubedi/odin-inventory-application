@@ -7,4 +7,5 @@ export const validateFruitParam = param("fruit")
   .notEmpty()
   .withMessage(`Fruit ${emptyError}`)
   .bail()
+  .toLowerCase()
   .custom(isFruitInDB);

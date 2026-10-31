@@ -14,6 +14,11 @@ export const validateFruitColorCreations = [
   body()
     .custom(hasColorFieldValue("to add"))
     .bail()
+    .customSanitizer((body, { req }) => {
+      const { colorField } = req.params;
+      body[colorField] = body[colorField].trim().toLowerCase();
+      return body;
+    })
     .custom(async (_, { req, location }) => {
       const { colorField } = req.params;
       const inputColorValue = req[location][colorField];
