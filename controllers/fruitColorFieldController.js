@@ -70,5 +70,13 @@ export const postFruitFieldUpdate = [
 ];
 
 export const postFruitFieldDelete = async (req, res) => {
-  res.send("postFruitFieldDelete");
+  const { fruit, colorField, color } = req.params;
+
+  if (colorField === "fruitColor") {
+    await db.deleteFruitColorOfFruit(fruit, color);
+  } else if (colorField === "peelColor") {
+    await db.deletePeelColorOfFruit(fruit, color);
+  }
+
+  res.redirect(`${FRUITS_PATH}/${fruit}`);
 };
